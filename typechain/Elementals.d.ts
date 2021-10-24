@@ -35,7 +35,9 @@ interface ElementalsInterface extends ethers.utils.Interface {
     "renounceOwnership()": FunctionFragment;
     "safeTransferFrom(address,address,uint256)": FunctionFragment;
     "setApprovalForAll(address,bool)": FunctionFragment;
+    "setBaseURI(string)": FunctionFragment;
     "setStartTime(uint256)": FunctionFragment;
+    "setWhitelist(address[],bool)": FunctionFragment;
     "startTime()": FunctionFragment;
     "supportsInterface(bytes4)": FunctionFragment;
     "symbol()": FunctionFragment;
@@ -85,9 +87,14 @@ interface ElementalsInterface extends ethers.utils.Interface {
     functionFragment: "setApprovalForAll",
     values: [string, boolean]
   ): string;
+  encodeFunctionData(functionFragment: "setBaseURI", values: [string]): string;
   encodeFunctionData(
     functionFragment: "setStartTime",
     values: [BigNumberish]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "setWhitelist",
+    values: [string[], boolean]
   ): string;
   encodeFunctionData(functionFragment: "startTime", values?: undefined): string;
   encodeFunctionData(
@@ -152,8 +159,13 @@ interface ElementalsInterface extends ethers.utils.Interface {
     functionFragment: "setApprovalForAll",
     data: BytesLike
   ): Result;
+  decodeFunctionResult(functionFragment: "setBaseURI", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "setStartTime",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "setWhitelist",
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "startTime", data: BytesLike): Result;
@@ -339,8 +351,19 @@ export class Elementals extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    setBaseURI(
+      __baseURI: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
     setStartTime(
       _startTime: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
+    setWhitelist(
+      addresses: string[],
+      allow: boolean,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
@@ -454,8 +477,19 @@ export class Elementals extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  setBaseURI(
+    __baseURI: string,
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
   setStartTime(
     _startTime: BigNumberish,
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
+  setWhitelist(
+    addresses: string[],
+    allow: boolean,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
@@ -562,8 +596,16 @@ export class Elementals extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
+    setBaseURI(__baseURI: string, overrides?: CallOverrides): Promise<void>;
+
     setStartTime(
       _startTime: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
+    setWhitelist(
+      addresses: string[],
+      allow: boolean,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -758,8 +800,19 @@ export class Elementals extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    setBaseURI(
+      __baseURI: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
     setStartTime(
       _startTime: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
+    setWhitelist(
+      addresses: string[],
+      allow: boolean,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
@@ -883,8 +936,19 @@ export class Elementals extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
+    setBaseURI(
+      __baseURI: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
     setStartTime(
       _startTime: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    setWhitelist(
+      addresses: string[],
+      allow: boolean,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 

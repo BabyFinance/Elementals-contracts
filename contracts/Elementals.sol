@@ -22,14 +22,15 @@ contract Elementals is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable, Paus
     
     uint256 public startTime;
 
-    constructor() ERC721("Elementals", "ELEM") {
+    constructor() ERC721("Elementals", "ELMNTL") {
         _pause();
         startTime = block.timestamp;
         baseURI = "https://babygeist.finance/nft/elementals/tokens/";
     }
     
-    function mint() external {
-        require(whitelist[msg.sender], "Not whitelisted!");
+    function mint() external whenNotPaused {
+        require(block.timestamp >= startTime, "Not started");
+        require(whitelist[msg.sender], "Not whitelisted");
         require(!claimed[msg.sender], "You have already claimed your Elemental");
         claimed[msg.sender] = true;
         _mint(msg.sender);
